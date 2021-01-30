@@ -50,7 +50,7 @@
       let div3 = document.getElementById("div3");
       div3.remove();
         
-      //7 Set the contents of the title element to be your GitHub account name
+      //7 Set the contents of the title element to be GitHub account name
       let title = document.createElement("title");
       title.innerText = "ayerra1";
 
@@ -60,6 +60,16 @@
 
       //9 Set the content to Computer Science
       list.innerText = "Computer Science";
+        
+      //10 Add that list item element to the unordered list
+      document.querySelector("ul").appendChild(list);
+
+      //11 Remove the class big from the first list item element
+      let removeClass = document.querySelector("li");
+      removeClass.classList.remove("big");
+
+      //12 Add the class blue to the second list item element
+      list.classList.add("blue");
 
 
 
