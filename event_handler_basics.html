@@ -48,7 +48,14 @@
         img.addEventListener("mouseout", handler2);
       }
 
-   
+    let quote = document.querySelector("blockquote");
+      
+      function handler3() {
+       window.open(quote.getAttribute("cite"));
+
+      }
+
+      quote.addEventListener("click", handler3);
 
 
     </script>
