@@ -46,7 +46,7 @@
         for (let elem of json) {
         let clone = document.querySelector(".card").cloneNode("true");
        clone.querySelector(".card-title").innerHTML =elem.name_;
-            
+            clone.querySelector(".card-subtitle.mb-2.text-muted").innerHTML = elem.hours_of_operation;
         document.querySelector(".row").appendChild(clone);
              
           }
