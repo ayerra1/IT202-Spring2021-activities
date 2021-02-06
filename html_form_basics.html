@@ -70,7 +70,12 @@ It is difficult to get a man to understand something, when his salary depends up
 //      Select the radio button with the value green
        document.querySelector("#greencolor").checked = "true";
 
+// Set the value of the textarea element to be the quotation (by reading the value of the paragraph element.)
+         let pText = document.querySelector("p").innerText;
 
+    document.querySelector("textarea").value= pText;
+       
+ 
        
  
 
