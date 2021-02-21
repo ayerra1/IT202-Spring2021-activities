@@ -14,6 +14,7 @@
       // instantiates the pie chart, passes in the data and
       // draws it.
       function drawChart() {
+
         var data = new google.visualization.DataTable();
         data.addColumn('string','school_type');
         data.addColumn('number','count_school_type');
@@ -30,11 +31,36 @@
         var chart = new google.visualization.PieChart(document.querySelector('#chart_div'));
         chart.draw(data, options);
         })
+
+var lineData = new google.visualization.DataTable();
+        lineData.addColumn('string','date');
+        lineData.addColumn('number','sum_total_doses_cumulative');
+        fetch("https://data.cityofchicago.org/resource/553k-3xzc.json?$SELECT=date,sum(total_doses_cumulative)&$GROUP=date&$ORDER=date")
+        .then( (response) => {return response.json() })
+        .then( (json) => {
+          json.forEach( (temp) => {
+            data.addRow([temp.date, parseInt(temp.sum_total_doses_cumulative)])  });
+                 // Set chart options
+        var options = {'title':'pie chart representation of different public schools in chicago',
+                       'width':400,
+                       'height':300};
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.LineChart(document.querySelector('#line_chart_div'));
+        chart.draw(data, options);
+        })
+
+        
       }
     </script>
   </head>
+
   <body>
     <!--Div that will hold the pie chart-->
     <div id="chart_div"></div>
+
+    <!--Div that will hold the line chart-->
+    <div id="line_chart_div"></div>
+
+
   </body>
 </html>
