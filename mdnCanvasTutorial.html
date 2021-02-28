@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset='utf-8'/>
+  <title>HTML Canvas Demo</title>
+  <link rel='stylesheet' href='custom.css'/>
+  <!-- <script src="canvas.js"></script> -->
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="html-canvas" width="500" height= "500"></canvas>
+
+
+
+
+
+<script>
+
+
+let canvas = document.querySelector("canvas");
+
+canvas.style.backgroundColor = "coral";
+
+let ctx = canvas.getContext("2d");
+
+ctx.fillStyle ="blue";
+
+
+
+ctx.shadowColor="white"
+ctx.shadowBlur = 30;
+//
+
+ctx.beginPath();
+ctx.rect(50,50,150,90);
+ctx.fill();
+
+ctx.closePath();
+
+let redCircle = new Path2D();
+redCircle.arc(400,70,50,0, 2*Math.PI);
+ctx.fillStyle='red';
+ctx.shadowColor="coral"
+ctx.shadowBlur = 30;
+ctx.fill(redCircle);
+
+let image = new Image();
+image.onload = function () {
+  for(let i = 1; i<=4; i++) {
+    let j = 1;
+    while(j<=5) {
+      ctx.drawImage(image, j*100, i*200, 70, 50);
+      j++;
+    }
+  }
+};
+image.src = "https://www.uicbookstore.org/images/product/medium/4154.jpg"
+
+
+ctx.font = "25px Roboto";
+ctx.strokeText("Anurag Reddy Yerrabotula", 70, 30);
+</script>
+
+
+
+  </body>
+</html>
+
