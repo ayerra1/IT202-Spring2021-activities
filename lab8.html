@@ -24,6 +24,15 @@
 
 
       // once you get that working, update the code above to create 25 additional gameObjects with random x, y and color values; and push them to the array before the drawing and comparison
+         for(let i =0; i<25; i++) {
+        
+        let randomX = 25 + (Math.random() * (c.width - (2 * 25)));
+        let randomY = 25 + (Math.random() * (c.height - (2 * 25)));
+        let randomColor = Math.floor(Math.random()*16777215).toString(16);
+        let newColor =  "#" + randomColor;
+        gameObjs.push( {x: randomX, y: randomY, radius: 25, color: newColor } )
+
+      }
 
      
 
