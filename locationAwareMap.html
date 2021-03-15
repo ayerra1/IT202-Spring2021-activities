@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>locationAwareMap</title>
+
+
+    <style type="text/css">
+      #map {
+        height: 100%;
+      }
+      html,
+      body{
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+    <script>
+      function watchUserPos() {
+        navigator.geolocation.watchPosition((userPos) => {
+          const circleMarker = new google.maps.Circle({
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.8,
+            strokeWeight: 4,
+            fillColor: "#FF0000",
+            fillOpacity: 0.35,
+            map,
+            center: { lat: userPos.coords.latitude, lng: userPos.coords.longitude},
+            radius: 5,
+          });
+
+          let datTime = Date(); 
+
+          let posData = "{lat: " + userPos.coords.latitude + ", lng: " + userPos.coords.longitude + "}" + datTime;
+
+          let tempDiv = document.querySelector("#userCoordinates");
+          let newList = document.querySelector("#newList");
+          let newListItem = document.createElement('li');
+          newListItem.innerText = posData;
+
+          newList.prepend(newListItem);
+          tempDiv.appendChild(newList);
+        })
+      }
+      
+      // create a variable to reference the map object
+      let map;
+      function initMap() {
+        navigator.geolocation.watchPosition((userPos) => {
+          map = new google.maps.Map(document.querySelector("#map"), {
+            zoom: 18,
+            center: { lat: userPos.coords.latitude, lng: userPos.coords.longitude},          
+          });
+        })
+        watchUserPos();
+      }
+
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="userCoordinates">
+      <ul id="newList"></ul>
+    </div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMi6xHoyPfjM_2hwE_2aPbLzs1ii0aGxs&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+  </body>
+</html>
