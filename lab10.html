@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Speech Synthesis</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Bootstrap
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"> -->
+   
+  </head>
+  
+  <body>
+     <h1 class="head">Welcome, to Speech Synthesizer</h1>
+     <br>
+
+    <form id="data">
+      <label for="input">Enter Text:</label>
+      <textarea form="data" id="input" name="input" rows="5" cols="50"></textarea>
+      <br>
+
+  <br>
+  <br>
+      <label for="input">select a language:</label><br>
+      <select name="lang" id="lang">
+        <option></option>
+      </select>
+      <br><br>
+      <button class="btn btn-1" id="Speak" type="submit" disabled>Speak</button>
+    </form>
+
+    <script>
+
+      let synth = window.speechSynthesis;
+      let inputForm = document.querySelector('#data');
+      let inputTxt = document.querySelector('#input');
+      let voiceSelect = document.querySelector('select');
+      let lang = document.querySelector('#lang');
+
+      let voices = [];
+      let populateVoiceList = () => {
+        voices = synth.getVoices();
+
+        for (let i = 0; i < voices.length ; i++) {
+          let option = document.createElement('option');
+          option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+
+          if (voices[i].default) {
+            option.textContent += ' -- DEFAULT';
+          }
+
+          option.value = i;
+          voiceSelect.appendChild(option);
+        }
+      }
+      populateVoiceList();
+      if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = populateVoiceList;
+      }
+      lang.addEventListener('change', (event) => {
+       
+         if (lang.value == "") {
+            buttontoSpeak.disabled = true;
+        } else if (lang.value !="") {
+          buttontoSpeak.disabled = false;
+        }
+      });
+
+
+      let buttontoSpeak = document.querySelector('#Speak');
+      buttontoSpeak.addEventListener('click', (event) => {
+        event.preventDefault();
+        let say = new SpeechSynthesisUtterance(inputTxt.value);
+        say.voice = voices[lang.value];
+        synth.speak(say);
+        inputTxt.blur();
+      });
+
+    </script>
+  </body>
+</html>
